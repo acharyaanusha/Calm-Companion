@@ -171,7 +171,7 @@ export default function App() {
     ]);
 
     try {
-      const res = await fetch("http://localhost:3001/api/chat", {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -387,6 +387,12 @@ export default function App() {
         </div>
         <p className="footer-hint">
           <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line · tap mic to speak
+        </p>
+        <p className="footer-credit">
+          built by{" "}
+          <a href="https://github.com/acharyaanusha" target="_blank" rel="noopener noreferrer">Anusha</a>
+          {" · "}
+          <a href="https://linkedin.com/in/acharyaanusha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </p>
       </footer>
     </div>

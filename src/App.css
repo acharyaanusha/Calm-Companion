@@ -637,6 +637,25 @@ kbd {
   color: var(--text-muted);
 }
 
+.footer-credit {
+  max-width: 640px;
+  margin: 4px auto 0;
+  font-size: 11px;
+  color: var(--text-hint);
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.footer-credit a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-credit a:hover {
+  color: var(--accent);
+}
+
 /* ── Scrollbar for messages ── */
 .messages::-webkit-scrollbar {
   width: 3px;
