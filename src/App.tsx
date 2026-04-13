@@ -1,6 +1,20 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import "./App.css";
 
+interface ISpeechRecognition {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: ((event: { results: { [i: number]: { [j: number]: { transcript: string } } } }) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  start(): void;
+  stop(): void;
+}
+
+type SpeechRecognitionCtor = new () => ISpeechRecognition;
+type WindowWithSpeech = Window & { SpeechRecognition?: SpeechRecognitionCtor; webkitSpeechRecognition?: SpeechRecognitionCtor };
+
 interface Message {
   role: "user" | "assistant";
   content: string;
@@ -121,7 +135,7 @@ export default function App() {
   const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<ISpeechRecognition | null>(null);
   const hasStarted = messages.length > 0;
 
   useEffect(() => {
@@ -218,8 +232,8 @@ export default function App() {
       return;
     }
 
-    const SR: typeof SpeechRecognition | undefined =
-      window.SpeechRecognition ?? (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
+    const win = window as WindowWithSpeech;
+    const SR = win.SpeechRecognition ?? win.webkitSpeechRecognition;
 
     if (!SR) {
       setInput("[Voice input isn't supported in this browser — try Chrome or Edge]");
@@ -231,7 +245,7 @@ export default function App() {
     recognition.interimResults = false;
     recognition.lang = "en-US";
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
       setInput((prev) => (prev.trim() ? prev.trim() + " " + transcript : transcript));
     };
