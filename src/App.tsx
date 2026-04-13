@@ -392,7 +392,7 @@ export default function App() {
           built by{" "}
           <a href="https://github.com/acharyaanusha" target="_blank" rel="noopener noreferrer">Anusha</a>
           {" · "}
-          <a href="https://linkedin.com/in/acharyaanusha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://linkedin.com/in/anushaacharya123" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </p>
       </footer>
     </div>
